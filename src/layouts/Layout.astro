@@ -1,21 +1,42 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
+
 interface Props {
 	title: string;
+	description?: string;
+	ogTitle?: string;
+	ogDescription?: string;
+	ogImage?: string;
+	ogUrl?: string;
 }
 
-const { title } = Astro.props;
+const {
+	title,
+	description,
+	ogTitle,
+	ogDescription,
+	ogImage,
+	ogUrl
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		
 		<title>{title}</title>
+
+		<meta property="og:title" content={ogTitle || title} />
+		<meta property="og:description" content={ogDescription || description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:url" content={ogUrl} />
+
+		<ViewTransitions />
 	</head>
 
 	<body>
